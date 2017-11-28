@@ -1,5 +1,6 @@
 package com.asadmansoor.fintrack;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,11 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.github.rubensousa.floatingtoolbar.FloatingToolbar;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    EditText mSearchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,15 @@ public class DashboardActivity extends AppCompatActivity
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final FloatingToolbar fabToolbar = (FloatingToolbar) findViewById(R.id.floatingToolbar);
+        mSearchEditText = (EditText) findViewById(R.id.search_et);
+
+        mSearchEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         fabToolbar.attachFab(fab);
 
@@ -73,7 +86,9 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+            startActivity(intent);
             return true;
         }
 
