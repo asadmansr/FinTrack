@@ -101,17 +101,24 @@ public class DashboardActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            //Intent intent = new Intent(DashboardActivity.this, HelpActivity.class);
+            //startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_settings) {
+            Intent intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+            startActivity(intent);
+            finish();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(DashboardActivity.this, AboutActivity.class);
+            startActivity(intent);
+            finish();
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_help) {
+            Intent intent = new Intent(DashboardActivity.this, HelpActivity.class);
+            startActivity(intent);
+            finish();
 
         }
 
