@@ -1,9 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.asadmansoor.fintrack.SearchActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/toolbar_rl"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <EditText
+            android:id="@+id/search_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_toRightOf="@+id/back_button_btn"
+            android:layout_toEndOf="@+id/back_button_btn"
+            android:hint="@string/search_hint_et"
+            android:textSize="12sp"
+            android:imeOptions="actionDone"
+            android:lines="1"
+            android:maxLines="1"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="8dp" />
+        
+        <ImageButton
+            android:id="@+id/back_button_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_arrow_back_white_24dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="16dp"
+            />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/trending_cv"
+        android:layout_below="@id/toolbar_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trending_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trending"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:textSize="12sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/trending_rv"
+                android:layout_below="@id/trending_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/search_cv"
+        android:layout_below="@id/trending_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <ListView
+            android:id="@+id/search_lv"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:divider="#FFFFFFFF" />
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
