@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class DashboardActivity extends AppCompatActivity
     LinearLayout mDashboardContainer;
     RecyclerView mFavourites;
     ArrayList<String> mFavouriteList;
+    ImageView mStar, mNotif;
     FavouritesRecyclerAdapter mFavouritesRecyclerAdapter;
     FloatingActionButton fab;
     String buttonValue;
@@ -69,6 +71,9 @@ public class DashboardActivity extends AppCompatActivity
 
         mBaseET = (EditText) findViewById(R.id.base_et);
         mCounterET = (EditText) findViewById(R.id.counter_et);
+
+        mStar = (ImageView) findViewById(R.id.star_iv);
+        mNotif = (ImageView) findViewById(R.id.notif_iv);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -149,6 +154,38 @@ public class DashboardActivity extends AppCompatActivity
                 intent.putExtra("reference",mBaseBtn.getText());
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        mStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String state = mStar.getContentDescription().toString();
+                if (state.equals("unselected")){
+                    mStar.setBackgroundResource(R.drawable.ic_star_selected);
+                    mStar.setContentDescription("selected");
+
+                } else if (state.equals("selected")){
+                    mStar.setBackgroundResource(R.drawable.ic_star_unselected);
+                    mStar.setContentDescription("unselected");
+
+                }
+            }
+        });
+
+        mNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String state = mNotif.getContentDescription().toString();
+                if (state.equals("unselected")){
+                    mNotif.setBackgroundResource(R.drawable.ic_bell_selected);
+                    mNotif.setContentDescription("selected");
+
+                } else if (state.equals("selected")){
+                    mNotif.setBackgroundResource(R.drawable.ic_bell_unselected);
+                    mNotif.setContentDescription("unselected");
+
+                }
             }
         });
 

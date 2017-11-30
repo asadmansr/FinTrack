@@ -107,7 +107,41 @@
                         android:orientation="horizontal"
                         android:layout_marginLeft="36dp"
                         android:layout_marginRight="36dp"
-                        android:weightSum="7">
+                        android:weightSum="9">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/star_iv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_star_unselected"
+                                android:contentDescription="unselected"
+                                />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/notif_iv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_bell_unselected"
+                                android:contentDescription="unselected"
+                                />
+
+                        </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="0dp"
@@ -341,6 +375,7 @@
                         android:layout_below="@id/select_amount_ll"
                         android:layout_marginTop="16dp"
                         >
+
 
                         <TextView
                             android:id="@+id/high_tv"
