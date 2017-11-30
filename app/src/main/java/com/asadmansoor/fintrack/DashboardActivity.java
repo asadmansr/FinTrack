@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,11 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -33,6 +37,8 @@ public class DashboardActivity extends AppCompatActivity
 
     EditText mSearchEditText;
     TextView mComingSoonText;
+    Button mBaseBtn, mCounterBtn;
+    EditText mBaseET, mCounterET;
     LinearLayout mDashboardContainer;
     RecyclerView mFavourites;
     ArrayList<String> mFavouriteList;
@@ -53,8 +59,33 @@ public class DashboardActivity extends AppCompatActivity
         mSearchEditText = (EditText) findViewById(R.id.search_et);
         mFavourites = (RecyclerView) findViewById(R.id.favorites_rv);
 
+        mBaseBtn = (Button) findViewById(R.id.base_btn);
+        mCounterBtn = (Button) findViewById(R.id.counter_btn);
+
         mComingSoonText = (TextView) findViewById(R.id.coming_soon_tv);
         mDashboardContainer = (LinearLayout) findViewById(R.id.dashboard_container_ll);
+
+        mBaseET = (EditText) findViewById(R.id.base_et);
+        mCounterET = (EditText) findViewById(R.id.counter_et);
+
+        mBaseET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if ((charSequence.toString()).length() > 0) {
+                    convertCurrency(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         mSearchEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +94,22 @@ public class DashboardActivity extends AppCompatActivity
                     Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        mBaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mCounterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -142,20 +189,27 @@ public class DashboardActivity extends AppCompatActivity
 
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
+        Description description = new Description();
+        description.setText("Currency Value");
+        chart.setDescription(description);
 
         List<Entry> entries = new ArrayList<Entry>();
-        entries.add(new Entry(1,2));
-        entries.add(new Entry(2,4));
-        entries.add(new Entry(3,5));
-        entries.add(new Entry(4,6));
-        entries.add(new Entry(5,8));
+        entries.add(new Entry(1, (float) 0.78668));
+        entries.add(new Entry(2, (float) 0.78521));
+        entries.add(new Entry(3, (float) 0.78691));
+        entries.add(new Entry(4, (float) 0.78710));
+        entries.add(new Entry(5, (float) 0.78828));
+        entries.add(new Entry(6, (float) 0.78161));
+        entries.add(new Entry(7, (float) 0.77873));
 
         List<Entry> entriesB = new ArrayList<Entry>();
-        entriesB.add(new Entry(1,3));
-        entriesB.add(new Entry(2,3));
-        entriesB.add(new Entry(3,5));
-        entriesB.add(new Entry(4,7));
-        entriesB.add(new Entry(5,9));
+        entriesB.add(new Entry(1, (float) 1.27137));
+        entriesB.add(new Entry(2, (float) 1.27084));
+        entriesB.add(new Entry(3, (float) 1.27068));
+        entriesB.add(new Entry(4, (float) 1.27128));
+        entriesB.add(new Entry(5, (float) 1.26836));
+        entriesB.add(new Entry(6, (float) 1.27866));
+        entriesB.add(new Entry(7, (float) 1.28108));
 
 
         LineDataSet dataSet = new LineDataSet(entries, "Base Currency"); // add entries to dataset
@@ -172,15 +226,16 @@ public class DashboardActivity extends AppCompatActivity
         lineData.addDataSet(dataSetB);
 
         chart.setData(lineData);
+
         chart.invalidate(); // refresh
 
 
         mFavouriteList = new ArrayList<>();
-        mFavouriteList.add("CAD,$1.00");
-        mFavouriteList.add("USD,$1.00");
-        mFavouriteList.add("INR,$1.00");
-        mFavouriteList.add("BRL,$1.00");
-        mFavouriteList.add("EUR,$1.00");
+        mFavouriteList.add("CAD,1.00");
+        mFavouriteList.add("USD,0.77");
+        mFavouriteList.add("INR,50.05");
+        mFavouriteList.add("BRL,2.54");
+        mFavouriteList.add("EUR,0.65");
 
         mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(mFavouriteList);
 
@@ -257,5 +312,23 @@ public class DashboardActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void convertCurrency(String baseCurrency){
+        double[] baseARS = new double[]{0.189139,0.0745341,1.53141,0.0485375,3.73225,0.216717,5.78961,0.483731,0.0577858};
+        double[] baseBRL = new double[]{5.28755,0.394054,8.09815,0.256601,19.7406,1.14608,30.6015,2.55757,0.305624};
+        double[] baseCAD = new double[]{13.4205,2.53753,20.5515,0.651054,50.0925,2.90833,77.6230,6.49098,0.775590};
+        double[] baseCUP = new double[]{0.652982,0.123503,0.0486527,0.0316779,2.43759,0.141525,3.77514,0.315825,0.0377358};
+        double[] baseEUR = new double[]{20.6166,3.89786,1.53567,31.5698,76.9368,4.46781,119.257,9.97107,1.19139};
+        double[] baseINR = new double[]{0.267941,0.0506595,0.0199591,0.410279,0.0129957,0.0580615,1.54913,0.129564,0.0154816};
+        double[] baseSAR = new double[]{4.61416,0.872661,0.343728,7.06613,0.223820,17.2235,26.6914,2.23147,0.266645};
+        double[] baseRSD = new double[]{0.173031,0.0327236,0.0128884,0.264988,0.00839339,0.645849,0.0374984,0.0836841,0.00999937};
+        double[] baseSEK = new double[]{2.06770,0.391054,0.154020,3.16661,0.100303,7.71659,0.448138,11.9646,0.119495};
+        double[] baseUSD = new double[]{17.3036,3.27273,1.28900,26.5000,0.839415,64.5760,3.74966,100.074,8.36939};
+
+        int baseValue = Integer.valueOf(baseCurrency);
+        double convertedValue = baseValue * baseCAD[8];
+        mCounterET.setText(String.valueOf(convertedValue));
+
     }
 }

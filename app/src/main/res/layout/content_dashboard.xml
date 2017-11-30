@@ -93,7 +93,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fadeScrollbars="false">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -134,6 +135,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="1W"
+                                android:textStyle="bold"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
                                 />
@@ -226,7 +228,7 @@
                     <LinearLayout
                         android:id="@+id/select_currency_ll"
                         android:layout_below="@id/filter_ll"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="36dp"
@@ -237,11 +239,16 @@
                         <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            >
 
                             <Button
+                                android:id="@+id/base_btn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="@color/colorAccent"
+                                android:gravity="center"
                                 android:text="CAD" />
 
 
@@ -250,11 +257,15 @@
                         <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp">
 
                             <Button
+                                android:id="@+id/counter_btn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="#90eafe"
+                                android:gravity="center"
                                 android:text="USD" />
 
                         </RelativeLayout>
@@ -267,6 +278,7 @@
                         android:layout_below="@id/select_currency_ll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:layout_marginLeft="36dp"
                         android:layout_marginRight="36dp"
                         android:orientation="horizontal"
@@ -279,9 +291,15 @@
                             android:layout_height="wrap_content">
 
                             <EditText
+                                android:id="@+id/base_et"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="530"
+                                android:textSize="14sp"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:inputType="number"
+                                android:fontFamily="sans-serif-light"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginRight="16dp"
                                 android:gravity="center"/>
@@ -295,18 +313,24 @@
                             android:layout_height="wrap_content">
 
                             <EditText
+                                android:id="@+id/counter_et"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="430"
+                                android:text="410.964"
                                 android:gravity="center"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:inputType="number"
+                                android:textSize="14sp"
+                                android:fontFamily="sans-serif-light"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginRight="16dp"
+                                android:clickable="false"
+                                android:enabled="false"
                                 />
 
 
                         </RelativeLayout>
-
-
 
                     </LinearLayout>
 
@@ -322,7 +346,7 @@
                             android:id="@+id/high_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="HIGH 0.8029"/>
+                            android:text="High: 0.82587"/>
 
                         <TextView
                             android:id="@+id/low_tv"
@@ -330,7 +354,7 @@
                             android:layout_below="@id/high_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="LOW 0.6826"/>
+                            android:text="Low:  0.77567"/>
 
                     </RelativeLayout>
 
