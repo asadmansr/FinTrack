@@ -6,7 +6,7 @@
 
     <string name="action_search">Search</string>
 
-    <string name="search_hint_et">Search for currencies</string>
+    <string name="search_hint_et">Search for currencies...</string>
 
 
     <string name="navigation_dashboard">Dashboard</string>

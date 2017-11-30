@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -30,16 +32,19 @@ public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     EditText mSearchEditText;
+    TextView mComingSoonText;
+    LinearLayout mDashboardContainer;
     RecyclerView mFavourites;
     ArrayList<String> mFavouriteList;
     FavouritesRecyclerAdapter mFavouritesRecyclerAdapter;
     FloatingActionButton fab;
+    boolean mState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -48,11 +53,16 @@ public class DashboardActivity extends AppCompatActivity
         mSearchEditText = (EditText) findViewById(R.id.search_et);
         mFavourites = (RecyclerView) findViewById(R.id.favorites_rv);
 
+        mComingSoonText = (TextView) findViewById(R.id.coming_soon_tv);
+        mDashboardContainer = (LinearLayout) findViewById(R.id.dashboard_container_ll);
+
         mSearchEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
-                startActivity(intent);
+                if (mState) {
+                    Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -64,18 +74,44 @@ public class DashboardActivity extends AppCompatActivity
 
                 if (id == R.id.toolbar_bitcoin){
                     fab.setImageResource(R.drawable.ic_account_balance_wallet_white_24dp);
+                    mComingSoonText.setVisibility(View.VISIBLE);
+                    mDashboardContainer.setVisibility(View.GONE);
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorBitcoinBar));
+                    mSearchEditText.setHint("Search for cryptocurrencies...");
+                    mSearchEditText.setEnabled(false);
 
+                    mState = false;
 
                 } else if (id == R.id.toolbar_stock){
                     fab.setImageResource(R.drawable.ic_account_balance_white_24dp);
+                    mComingSoonText.setVisibility(View.VISIBLE);
+                    mDashboardContainer.setVisibility(View.GONE);
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorStockBar));
+                    mSearchEditText.setHint("Search for stocks...");
+                    mSearchEditText.setEnabled(false);
+
+                    mState = false;
 
 
                 } else if (id == R.id.toolbar_gold){
                     fab.setImageResource(R.drawable.ic_redeem_white_24dp);
+                    mComingSoonText.setVisibility(View.VISIBLE);
+                    mDashboardContainer.setVisibility(View.GONE);
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorGoldBar));
+                    mSearchEditText.setHint("Search for metal prices...");
+                    mSearchEditText.setEnabled(false);
+                    mState = false;
 
 
                 } else if (id == R.id.toolbar_currency){
                     fab.setImageResource(R.drawable.ic_attach_money_white_24dp);
+                    mComingSoonText.setVisibility(View.GONE);
+                    mDashboardContainer.setVisibility(View.VISIBLE);
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorCurrencyBar));
+                    mSearchEditText.setHint("Search for currencies...");
+                    mSearchEditText.setEnabled(true);
+
+                    mState = true;
 
 
                 }
@@ -181,8 +217,10 @@ public class DashboardActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
-            startActivity(intent);
+            if (mState) {
+                Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
             return true;
         }
 

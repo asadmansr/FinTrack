@@ -8,7 +8,19 @@
     tools:context="com.asadmansoor.fintrack.DashboardActivity"
     tools:showIn="@layout/app_bar_dashboard">
 
+    <TextView
+        android:id="@+id/coming_soon_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coming soon..."
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
     <LinearLayout
+        android:id="@+id/dashboard_container_ll"
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:weightSum="10"

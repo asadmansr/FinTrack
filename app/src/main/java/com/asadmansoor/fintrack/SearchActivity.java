@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class SearchActivity extends AppCompatActivity {
 
     ListView mSearchList;
     RecyclerView mTrendingList;
-    ImageButton mBackButton;
+    RelativeLayout mBackButton;
     EditText mSearchEditText;
     ArrayList<String> mHorizontalList;
     ArrayList<String> mSearchQuery;
@@ -52,7 +53,7 @@ public class SearchActivity extends AppCompatActivity {
         mSearchList = (ListView) findViewById(R.id.search_lv);
         mSearchEditText = (EditText) findViewById(R.id.search_et);
         mTrendingList = (RecyclerView) findViewById(R.id.trending_rv);
-        mBackButton = (ImageButton) findViewById(R.id.back_button_btn);
+        mBackButton = (RelativeLayout) findViewById(R.id.back_button_rl);
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
