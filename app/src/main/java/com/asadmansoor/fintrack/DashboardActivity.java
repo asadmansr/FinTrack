@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,6 +30,9 @@ public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     EditText mSearchEditText;
+    RecyclerView mFavourites;
+    ArrayList<String> mFavouriteList;
+    FavouritesRecyclerAdapter mFavouritesRecyclerAdapter;
     FloatingActionButton fab;
 
     @Override
@@ -41,6 +46,7 @@ public class DashboardActivity extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab);
         final FloatingToolbar fabToolbar = (FloatingToolbar) findViewById(R.id.floatingToolbar);
         mSearchEditText = (EditText) findViewById(R.id.search_et);
+        mFavourites = (RecyclerView) findViewById(R.id.favorites_rv);
 
         mSearchEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +137,21 @@ public class DashboardActivity extends AppCompatActivity
 
         chart.setData(lineData);
         chart.invalidate(); // refresh
+
+
+        mFavouriteList = new ArrayList<>();
+        mFavouriteList.add("CAD,$1.00");
+        mFavouriteList.add("USD,$1.00");
+        mFavouriteList.add("INR,$1.00");
+        mFavouriteList.add("BRL,$1.00");
+        mFavouriteList.add("EUR,$1.00");
+
+        mFavouritesRecyclerAdapter = new FavouritesRecyclerAdapter(mFavouriteList);
+
+        LinearLayoutManager horizontalLayoutManager
+                = new LinearLayoutManager(DashboardActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        mFavourites.setLayoutManager(horizontalLayoutManager);
+        mFavourites.setAdapter(mFavouritesRecyclerAdapter);
 
     }
 

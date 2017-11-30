@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       >
+
+        <TextView
+            android:id="@+id/currency_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="CAD"/>
+
+        <TextView
+            android:id="@+id/currency_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/currency_title"
+            android:layout_marginTop="6dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="$1.00"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#f4f4f4"
+            android:layout_alignTop="@id/currency_title"
+            android:layout_alignBottom="@id/currency_amount"
+            android:layout_alignParentRight="true"
+            />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
