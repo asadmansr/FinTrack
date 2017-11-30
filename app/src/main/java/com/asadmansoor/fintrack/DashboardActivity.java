@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -44,6 +45,7 @@ public class DashboardActivity extends AppCompatActivity
     ArrayList<String> mFavouriteList;
     FavouritesRecyclerAdapter mFavouritesRecyclerAdapter;
     FloatingActionButton fab;
+    String buttonValue;
     boolean mState = true;
 
     @Override
@@ -68,6 +70,35 @@ public class DashboardActivity extends AppCompatActivity
         mBaseET = (EditText) findViewById(R.id.base_et);
         mCounterET = (EditText) findViewById(R.id.counter_et);
 
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+
+            } else {
+                boolean validChange = extras.getBoolean("result");
+                if (validChange) {
+                    int positionBtn = extras.getInt("position");
+                    if (positionBtn == 0) {
+                        String temp = extras.getString("result_text");
+                        String ref = extras.getString("reference");
+                        temp = temp.split("-")[1];
+                        temp = temp.split(" ")[1];
+                        Log.d("data",temp);
+                        mBaseBtn.setText(temp.toUpperCase());
+                        mCounterBtn.setText(ref.toUpperCase());
+                    } else if (positionBtn == 1) {
+                        String temp = extras.getString("result_text");
+                        String ref = extras.getString("reference");
+                        temp = temp.split("-")[1];
+                        temp = temp.split(" ")[1];
+                        Log.d("data",temp);
+                        mCounterBtn.setText(temp.toUpperCase());
+                        mBaseBtn.setText(ref.toUpperCase());
+                    }
+                }
+            }
+        }
+
         mBaseET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -77,7 +108,7 @@ public class DashboardActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if ((charSequence.toString()).length() > 0) {
-                    convertCurrency(charSequence.toString());
+                    convertCurrency(charSequence.toString(),mBaseBtn.getText().toString(),mCounterBtn.getText().toString());
                 }
             }
 
@@ -92,7 +123,9 @@ public class DashboardActivity extends AppCompatActivity
             public void onClick(View view) {
                 if (mState) {
                     Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                    intent.putExtra("reference",mCounterBtn.getText());
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -101,7 +134,10 @@ public class DashboardActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                intent.putExtra("position",0);
+                intent.putExtra("reference",mCounterBtn.getText());
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -109,7 +145,10 @@ public class DashboardActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                intent.putExtra("position",1);
+                intent.putExtra("reference",mBaseBtn.getText());
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -274,7 +313,9 @@ public class DashboardActivity extends AppCompatActivity
         if (id == R.id.action_search) {
             if (mState) {
                 Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
+                intent.putExtra("reference",mCounterBtn.getText());
                 startActivity(intent);
+                finish();
             }
             return true;
         }
@@ -314,20 +355,59 @@ public class DashboardActivity extends AppCompatActivity
         return true;
     }
 
-    private void convertCurrency(String baseCurrency){
-        double[] baseARS = new double[]{0.189139,0.0745341,1.53141,0.0485375,3.73225,0.216717,5.78961,0.483731,0.0577858};
-        double[] baseBRL = new double[]{5.28755,0.394054,8.09815,0.256601,19.7406,1.14608,30.6015,2.55757,0.305624};
-        double[] baseCAD = new double[]{13.4205,2.53753,20.5515,0.651054,50.0925,2.90833,77.6230,6.49098,0.775590};
-        double[] baseCUP = new double[]{0.652982,0.123503,0.0486527,0.0316779,2.43759,0.141525,3.77514,0.315825,0.0377358};
-        double[] baseEUR = new double[]{20.6166,3.89786,1.53567,31.5698,76.9368,4.46781,119.257,9.97107,1.19139};
-        double[] baseINR = new double[]{0.267941,0.0506595,0.0199591,0.410279,0.0129957,0.0580615,1.54913,0.129564,0.0154816};
-        double[] baseSAR = new double[]{4.61416,0.872661,0.343728,7.06613,0.223820,17.2235,26.6914,2.23147,0.266645};
-        double[] baseRSD = new double[]{0.173031,0.0327236,0.0128884,0.264988,0.00839339,0.645849,0.0374984,0.0836841,0.00999937};
-        double[] baseSEK = new double[]{2.06770,0.391054,0.154020,3.16661,0.100303,7.71659,0.448138,11.9646,0.119495};
-        double[] baseUSD = new double[]{17.3036,3.27273,1.28900,26.5000,0.839415,64.5760,3.74966,100.074,8.36939};
+    private void convertCurrency(String baseCurrency, String baseStr, String counterStr){
+        double[] baseARS = new double[]{1.0,0.189139,0.0745341,1.53141,0.0485375,3.73225,0.216717,5.78961,0.483731,0.0577858};
+        double[] baseBRL = new double[]{5.28755,1.0,0.394054,8.09815,0.256601,19.7406,1.14608,30.6015,2.55757,0.305624};
+        double[] baseCAD = new double[]{13.4205,2.53753,1.0,20.5515,0.651054,50.0925,2.90833,77.6230,6.49098,0.775590};
+        double[] baseCUP = new double[]{0.652982,0.123503,0.0486527,1.0,0.0316779,2.43759,0.141525,3.77514,0.315825,0.0377358};
+        double[] baseEUR = new double[]{20.6166,3.89786,1.53567,31.5698,1.0,76.9368,4.46781,119.257,9.97107,1.19139};
+        double[] baseINR = new double[]{0.267941,0.0506595,0.0199591,0.410279,0.0129957,1.0,0.0580615,1.54913,0.129564,0.0154816};
+        double[] baseSAR = new double[]{4.61416,0.872661,0.343728,7.06613,0.223820,17.2235,1.0,26.6914,2.23147,0.266645};
+        double[] baseRSD = new double[]{0.173031,0.0327236,0.0128884,0.264988,0.00839339,0.645849,0.0374984,1.0,0.0836841,0.00999937};
+        double[] baseSEK = new double[]{2.06770,0.391054,0.154020,3.16661,0.100303,7.71659,0.448138,11.9646,1.0,0.119495};
+        double[] baseUSD = new double[]{17.3036,3.27273,1.28900,26.5000,0.839415,64.5760,3.74966,100.074,8.36939,1.0};
 
         int baseValue = Integer.valueOf(baseCurrency);
-        double convertedValue = baseValue * baseCAD[8];
+
+        double convertedValue = 0;
+        int base = 0;
+        int counter = 0;
+        String[] listCurr = new String[]{"ARS","BRL","CAD","CUP","EUR","INR","SAR","RSD","SEK","USD"};
+
+        for (int i=0;i<listCurr.length;i++){
+            if (baseStr.equals(listCurr[i])){
+                base = i;
+            }
+
+            if (counterStr.equals(listCurr[i])){
+                counter = i;
+            }
+        }
+
+
+
+        if (base == 0){
+            convertedValue = baseValue * baseARS[counter];
+        } else if (base == 1){
+            convertedValue = baseValue * baseBRL[counter];
+        } else if (base == 2){
+            convertedValue = baseValue * baseCAD[counter];
+        } else if (base == 3){
+            convertedValue = baseValue * baseCUP[counter];
+        } else if (base == 4){
+            convertedValue = baseValue * baseEUR[counter];
+        } else if (base == 5){
+            convertedValue = baseValue * baseINR[counter];
+        } else if (base == 6){
+            convertedValue = baseValue * baseSAR[counter];
+        } else if (base == 7){
+            convertedValue = baseValue * baseRSD[counter];
+        } else if (base == 8){
+            convertedValue = baseValue * baseSEK[counter];
+        } else if (base == 9){
+            convertedValue = baseValue * baseUSD[counter];
+        }
+
         mCounterET.setText(String.valueOf(convertedValue));
 
     }

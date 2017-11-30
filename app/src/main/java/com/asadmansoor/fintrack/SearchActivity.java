@@ -30,6 +30,8 @@ public class SearchActivity extends AppCompatActivity {
     ArrayList<String> mSearchQuery;
     HorizontalRecyclerAdapter mHorizontalRecyclerAdapter;
     ArrayAdapter<String> adapter;
+    int position;
+    String reference;
 
     String[] values = new String[] {
             "Argentina Peso - ARS",
@@ -55,9 +57,25 @@ public class SearchActivity extends AppCompatActivity {
         mTrendingList = (RecyclerView) findViewById(R.id.trending_rv);
         mBackButton = (RelativeLayout) findViewById(R.id.back_button_rl);
 
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+
+            } else {
+                position = extras.getInt("position",0);
+                reference = extras.getString("reference","");
+            }
+        }
+
+
+
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DashboardActivity.class);
+                intent.putExtra("result",false);
+                startActivity(intent);
                 finish();
             }
         });
@@ -76,7 +94,7 @@ public class SearchActivity extends AppCompatActivity {
         mHorizontalList.add("SAR");
         mHorizontalList.add("INR");
 
-        mHorizontalRecyclerAdapter = new HorizontalRecyclerAdapter(mHorizontalList);
+        mHorizontalRecyclerAdapter = new HorizontalRecyclerAdapter(mHorizontalList, SearchActivity.this, position, reference);
 
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, mSearchQuery);
@@ -88,9 +106,17 @@ public class SearchActivity extends AppCompatActivity {
         mTrendingList.setLayoutManager(horizontalLayoutManager);
         mTrendingList.setAdapter(mHorizontalRecyclerAdapter);
 
+
+
         mSearchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(SearchActivity.this, DashboardActivity.class);
+                intent.putExtra("result",true);
+                intent.putExtra("position",position);
+                intent.putExtra("reference",reference);
+                intent.putExtra("result_text", (adapterView.getItemAtPosition(i)).toString());
+                startActivity(intent);
                 finish();
             }
         });
@@ -146,8 +172,9 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        //Intent intent = new Intent(HelpActivity.this, DashboardActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(SearchActivity.this, DashboardActivity.class);
+        intent.putExtra("result",false);
+        startActivity(intent);
         finish();
 
     }
