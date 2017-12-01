@@ -21,8 +21,8 @@
 
     <LinearLayout
         android:id="@+id/dashboard_container_ll"
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:weightSum="10"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="8dp"
@@ -50,8 +50,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginStart="16dp"
-                        android:textSize="12sp"
-                        />
+                        android:textSize="12sp" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/favorites_rv"
@@ -61,12 +60,10 @@
                         android:layout_marginTop="4dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginStart="16dp"
-                        android:layout_centerVertical="true"
-                        >
+                        android:layout_centerVertical="true">
 
 
                     </android.support.v7.widget.RecyclerView>
-
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -98,7 +95,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:id="@+id/filter_ll"
@@ -121,8 +118,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/ic_star_unselected"
-                                android:contentDescription="unselected"
-                                />
+                                android:contentDescription="unselected" />
 
                         </RelativeLayout>
 
@@ -138,8 +134,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/ic_bell_unselected"
-                                android:contentDescription="unselected"
-                                />
+                                android:contentDescription="unselected" />
 
                         </RelativeLayout>
 
@@ -154,8 +149,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="1D"
                                 android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                />
+                                android:layout_centerVertical="true" />
 
                         </RelativeLayout>
 
@@ -171,8 +165,7 @@
                                 android:text="1W"
                                 android:textStyle="bold"
                                 android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                />
+                                android:layout_centerVertical="true" />
 
                         </RelativeLayout>
 
@@ -187,8 +180,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="1M"
                                 android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                />
+                                android:layout_centerVertical="true" />
 
                         </RelativeLayout>
 
@@ -203,8 +195,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="3M"
                                 android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                />
+                                android:layout_centerVertical="true" />
 
                         </RelativeLayout>
 
@@ -219,8 +210,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="1Y"
                                 android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                />
+                                android:layout_centerVertical="true" />
 
                         </RelativeLayout>
 
@@ -235,8 +225,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5Y"
                                 android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                />
+                                android:layout_centerVertical="true" />
 
                         </RelativeLayout>
 
@@ -251,11 +240,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="10Y"
                                 android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                />
+                                android:layout_centerVertical="true" />
 
                         </RelativeLayout>
-
                     </LinearLayout>
 
 
@@ -275,7 +262,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="8dp"
-                            >
+                            android:layout_marginStart="8dp">
 
                             <Button
                                 android:id="@+id/base_btn"
@@ -292,7 +279,8 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp">
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp">
 
                             <Button
                                 android:id="@+id/counter_btn"
@@ -303,8 +291,6 @@
                                 android:text="USD" />
 
                         </RelativeLayout>
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -316,8 +302,7 @@
                         android:layout_marginLeft="36dp"
                         android:layout_marginRight="36dp"
                         android:orientation="horizontal"
-                        android:weightSum="2"
-                        >
+                        android:weightSum="2">
 
                         <RelativeLayout
                             android:layout_width="0dp"
@@ -337,7 +322,6 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginRight="16dp"
                                 android:gravity="center"/>
-
 
                         </RelativeLayout>
 
@@ -360,12 +344,8 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginRight="16dp"
                                 android:clickable="false"
-                                android:enabled="false"
-                                />
-
-
+                                android:enabled="false" />
                         </RelativeLayout>
-
                     </LinearLayout>
 
                     <RelativeLayout
@@ -373,8 +353,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="36dp"
                         android:layout_below="@id/select_amount_ll"
-                        android:layout_marginTop="16dp"
-                        >
+                        android:layout_marginTop="16dp">
 
 
                         <TextView
@@ -389,13 +368,13 @@
                             android:layout_below="@id/high_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
                             android:text="Low:  0.77567"/>
 
                     </RelativeLayout>
 
                 </RelativeLayout>
             </ScrollView>
-
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
