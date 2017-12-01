@@ -1,9 +1,12 @@
 package com.asadmansoor.fintrack;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -180,6 +183,7 @@ public class DashboardActivity extends AppCompatActivity
                 if (state.equals("unselected")){
                     mNotif.setBackgroundResource(R.drawable.ic_bell_selected);
                     mNotif.setContentDescription("selected");
+                    triggerNotification();
 
                 } else if (state.equals("selected")){
                     mNotif.setBackgroundResource(R.drawable.ic_bell_unselected);
@@ -446,6 +450,19 @@ public class DashboardActivity extends AppCompatActivity
         }
 
         mCounterET.setText(String.valueOf(convertedValue));
+
+    }
+
+
+    private void triggerNotification(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setContentTitle("CAD");
+        mBuilder.setContentText("0.82587");
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        //mNotificationManager.notify();
+        mNotificationManager.notify(001, mBuilder.build());
 
     }
 }
